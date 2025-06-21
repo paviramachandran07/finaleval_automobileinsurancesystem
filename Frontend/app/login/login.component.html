@@ -1,0 +1,28 @@
+<div class="card mx-auto mt-5" style="max-width: 400px;">
+  <div class="card-body">
+    <h2 class="card-title text-center">Login</h2>
+    <div *ngIf="errorMessage" class="alert alert-danger">{{ errorMessage }}</div>
+    <form #loginForm="ngForm" (ngSubmit)="onSubmit()" novalidate>
+      <div class="mb-3">
+        <label for="email" class="form-label">Email</label>
+        <input type="email" class="form-control" id="email" [(ngModel)]="email" name="email" required email>
+        <div *ngIf="loginForm.controls['email']?.invalid && (loginForm.controls['email']?.dirty || loginForm.controls['email']?.touched)">
+          <div *ngIf="loginForm.controls['email']?.errors?.['required']" class="text-danger">Email is required</div>
+          <div *ngIf="loginForm.controls['email']?.errors?.['email']" class="text-danger">Invalid email format</div>
+        </div>
+      </div>
+      <div class="mb-3">
+        <label for="password" class="form-label">Password</label>
+        <input type="password" class="form-control" id="password" [(ngModel)]="password" name="password" required>
+        <div *ngIf="loginForm.controls['password']?.invalid && (loginForm.controls['password']?.dirty || loginForm.controls['password']?.touched)">
+          <div *ngIf="loginForm.controls['password']?.errors?.['required']" class="text-danger">Password is required</div>
+        </div>
+      </div>
+      <button type="submit" class="btn btn-primary w-100" [disabled]="loginForm.invalid">Login</button>
+    </form>
+    <div class="text-center mt-3">
+      <a [routerLink]="['/register']">Don't have an account? Register</a>
+    </div>
+  </div>
+</div>
+

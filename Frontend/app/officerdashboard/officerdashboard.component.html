@@ -1,0 +1,86 @@
+<div class="card mt-4">
+  <div class="card-body">
+    <h2 class="card-title">Officer Dashboard</h2>
+    <div *ngIf="errorMessage" class="alert alert-danger">{{ errorMessage }}</div>
+
+    <button class="btn btn-secondary mb-3" (click)="goBack()">Back to Login</button>
+
+    <!-- Proposal Filter -->
+    <div class="mb-3">
+      <label>Filter Proposals (by User ID or Vehicle ID):</label>
+      <input class="form-control" [(ngModel)]="proposalFilter" (input)="applyProposalFilter()" placeholder=" " />
+    </div>
+
+    <h3>Proposals to Review</h3>
+    <table class="table table-bordered">
+      <thead>
+        <tr>
+          <th>Proposal ID</th>
+          <th>User ID</th>
+          <th>Vehicle ID</th>
+          <th>Status</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let proposal of filteredProposals">
+          <td>{{ proposal.proposalId }}</td>
+          <td>{{ proposal.userId }}</td>
+          <td>{{ proposal.vehicleId }}</td>
+          <td>{{ proposal.status }}</td>
+          <td>
+            <button class="btn btn-primary btn-sm" (click)="selectProposal(proposal)">Review</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <div *ngIf="filteredProposals.length === 0 && !errorMessage" class="alert alert-info">No matching proposals found.</div>
+
+    <div *ngIf="selectedProposal">
+      <app-proposalreview [proposal]="selectedProposal" (reviewCompleted)="onReviewCompleted()"></app-proposalreview>
+    </div>
+
+    <!-- Policy Filter Dropdown -->
+    <h3 class="mt-5">Issued Policies</h3>
+    <div class="mb-3">
+      <label>Filter Policies by Status:</label>
+      <select class="form-select" [(ngModel)]="policyStatusFilter" (change)="applyPolicyFilter()">
+        <option value="All">All</option>
+        <option value="Active">Active</option>
+        <option value="Cancelled">Cancelled</option>
+      </select>
+    </div>
+
+    <table class="table table-bordered">
+      <thead>
+        <tr>
+          <th>Policy ID</th>
+          <th>Policy Number</th>
+          <th>Status</th>
+          <th>Issued</th>
+          <th>Expires</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let policy of filteredPolicies">
+          <td>{{ policy.policyId }}</td>
+          <td>{{ policy.policyNumber }}</td>
+          <td>{{ policy.status }}</td>
+          <td>{{ policy.issuedDate | date: 'short' }}</td>
+          <td>{{ policy.expiryDate | date: 'short' }}</td>
+          <td>
+            <button class="btn btn-sm" [ngClass]="policy.status === 'Active' ? 'btn-danger' : 'btn-success'"
+              (click)="togglePolicyStatus(policy)">
+              {{ policy.status === 'Active' ? 'Deactivate' : 'Activate' }}
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <div *ngIf="filteredPolicies.length === 0 && !errorMessage" class="alert alert-info">No matching policies found.</div>
+  </div>
+</div>
+
+
+

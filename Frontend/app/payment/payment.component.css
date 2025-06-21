@@ -1,0 +1,12 @@
+.payment-details {
+  margin-top: 20px;
+}
+
+.payment-details .card-body {
+  padding: 15px;
+}
+
+.btn-success {
+  background-color: #28a745;
+  border-color: #28a745;
+}

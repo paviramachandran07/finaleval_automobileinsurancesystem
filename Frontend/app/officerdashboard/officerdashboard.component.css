@@ -1,0 +1,19 @@
+.container {
+  flex-grow: 1;
+  background-color: #f8f9fa;
+}
+
+.welcome-section {
+  background-color: #fff;
+  border: 1px solid #e9ecef;
+}
+
+.btn-sm {
+  border-radius: 20px;
+  padding: 6px 20px;
+}
+
+.list-group-item {
+  border: none;
+  background-color: #fff;
+}

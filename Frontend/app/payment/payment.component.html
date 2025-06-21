@@ -1,0 +1,20 @@
+<div class="card mt-4">
+  <div class="card-body">
+    <h2 class="card-title">Make Payment</h2>
+    <div *ngIf="quote">
+      <p>Quote ID: {{ quote.quoteId }}</p>
+      <p>Premium Amount: ${{ quote.premiumAmount }}</p>
+      <p>Coverage Details: {{ quote.coverageDetails }}</p>
+      <form #paymentForm="ngForm" (ngSubmit)="makePayment()" novalidate>
+      <div class="mb-3">
+      <label for="amountPaid" class="form-label">Amount to Pay</label>
+      <input type="number" class="form-control" id="amountPaid" [(ngModel)]="payment.amountPaid" name="amountPaid" [value]="quote.premiumAmount" readonly>
+      </div>
+      <button type="submit" class="btn btn-primary">Pay Now</button>
+    </form>
+    </div>
+  </div>
+</div>
+
+
+
